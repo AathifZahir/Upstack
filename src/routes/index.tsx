@@ -36,6 +36,12 @@ function Index() {
     }
     return null;
   });
+  const [onboardingDismissed, setOnboardingDismissed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('upstack_onboarding_dismissed') === 'true';
+    }
+    return false;
+  });
 
   const { teams, isLoading: teamsLoading, createTeam, joinTeam } = useTeams(user?.id ?? null);
   
@@ -72,14 +78,19 @@ function Index() {
     );
   }
 
-  if (teams.length === 0) {
+  if (teams.length === 0 && !onboardingDismissed) {
     return (
       <div className="min-h-screen bg-background">
         <OnboardingFlow
           userId={user.id}
           onComplete={(teamId) => {
-            setActiveTeamId(teamId);
-            localStorage.setItem('activeTeamId', teamId);
+            if (teamId) {
+              setActiveTeamId(teamId);
+              localStorage.setItem('activeTeamId', teamId);
+            } else {
+              setOnboardingDismissed(true);
+              localStorage.setItem('upstack_onboarding_dismissed', 'true');
+            }
           }}
         />
         <Toaster />

@@ -7,7 +7,7 @@ import { useTeams } from '@/hooks/use-teams';
 
 interface OnboardingFlowProps {
   userId: string;
-  onComplete: (teamId: string) => void;
+  onComplete: (teamId: string | null) => void;
 }
 
 export function OnboardingFlow({ userId, onComplete }: OnboardingFlowProps) {
@@ -35,11 +35,8 @@ export function OnboardingFlow({ userId, onComplete }: OnboardingFlowProps) {
     if (team) onComplete(team.id);
   };
 
-  const handlePersonal = async () => {
-    setIsSubmitting(true);
-    const team = await createTeam('Personal Space');
-    setIsSubmitting(false);
-    if (team) onComplete(team.id);
+  const handlePersonal = () => {
+    onComplete(null);
   };
 
   if (mode === 'create') {
