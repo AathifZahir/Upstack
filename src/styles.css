@@ -50,9 +50,9 @@
   --color-status-progress: var(--status-progress);
   --color-status-shipped: var(--status-shipped);
   --color-status-declined: var(--status-declined);
-  --color-upvote: var(--upvote);
-  --color-upvote-active: var(--upvote-active);
-  --color-upvote-active-foreground: var(--upvote-active-foreground);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-active: var(--brand-accent-active);
+  --color-brand-accent-active-foreground: var(--brand-accent-active-foreground);
   --color-vote-up: var(--vote-up);
   --color-vote-down: var(--vote-down);
   --color-cream: var(--cream);
@@ -120,10 +120,10 @@
   --status-shipped: oklch(0.65 0.19 160);
   --status-declined: oklch(0.6 0.2 25);
 
-  /* Upvote */
-  --upvote: oklch(0.50 0.01 60);
-  --upvote-active: oklch(0.20 0.06 280);
-  --upvote-active-foreground: oklch(0.97 0.005 280);
+  /* Brand Accent */
+  --brand-accent: oklch(0.50 0.01 60);
+  --brand-accent-active: oklch(0.20 0.06 280);
+  --brand-accent-active-foreground: oklch(0.97 0.005 280);
 
   /* Vote reaction colors */
   --vote-up: oklch(0.55 0.12 290);
@@ -152,11 +152,11 @@
 }
 
 @layer utilities {
-  .upvote-bounce {
-    animation: upvote-bounce 0.3s ease-out;
+  .vote-bounce {
+    animation: vote-bounce 0.3s ease-out;
   }
 
-  @keyframes upvote-bounce {
+  @keyframes vote-bounce {
     0% { transform: scale(1); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }

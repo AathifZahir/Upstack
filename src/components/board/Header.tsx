@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Plus, LogOut, Menu, UserPlus } from 'lucide-react';
-import { UpvoteLogo } from '@/components/brand/UpvoteLogo';
+import { AppLogo } from '@/components/brand/AppLogo';
 import { InviteModal } from '@/components/team/InviteModal';
 import { TeamSwitcher } from './TeamSwitcher';
 import { Team } from '@/hooks/use-teams';
@@ -36,7 +36,7 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
             className="transition-opacity hover:opacity-80 active:scale-95"
             title="Personal Board"
           >
-            <UpvoteLogo size="md" variant="light" />
+            <AppLogo size="md" variant="light" />
           </button>
           <div className="h-6 w-px bg-border/60 mx-1 hidden sm:block" />
           <TeamSwitcher

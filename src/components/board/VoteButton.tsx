@@ -11,7 +11,7 @@ interface VoteButtonsProps {
   disabled?: boolean;
 }
 
-export function UpvoteButton({ upCount, downCount, voteState, onVote, disabled }: VoteButtonsProps) {
+export function VoteButton({ upCount, downCount, voteState, onVote, disabled }: VoteButtonsProps) {
   const [bouncing, setBouncing] = useState<'up' | 'down' | null>(null);
 
   const handleClick = (e: React.MouseEvent, type: 'up' | 'down') => {
@@ -32,10 +32,10 @@ export function UpvoteButton({ upCount, downCount, voteState, onVote, disabled }
             ? 'bg-vote-up text-white shadow-sm shadow-vote-up/30'
             : 'bg-vote-up/10 text-vote-up hover:bg-vote-up/20'
           }
-          ${bouncing === 'up' ? 'upvote-bounce' : ''}
+          ${bouncing === 'up' ? 'vote-bounce' : ''}
           ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
         `}
-        title={voteState === 'up' ? 'Remove upvote' : 'Upvote'}
+        title={voteState === 'up' ? 'Remove vote' : 'Vote'}
       >
         <ThumbsUp className="h-3.5 w-3.5" />
         <span>{upCount}</span>
@@ -48,7 +48,7 @@ export function UpvoteButton({ upCount, downCount, voteState, onVote, disabled }
             ? 'bg-vote-down text-white shadow-sm shadow-vote-down/30'
             : 'bg-vote-down/10 text-vote-down hover:bg-vote-down/20'
           }
-          ${bouncing === 'down' ? 'upvote-bounce' : ''}
+          ${bouncing === 'down' ? 'vote-bounce' : ''}
           ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
         `}
         title={voteState === 'down' ? 'Remove downvote' : 'Downvote'}

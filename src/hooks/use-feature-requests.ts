@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import type { VoteState } from '@/components/board/UpvoteButton';
+import type { VoteState } from '@/components/board/VoteButton';
 
 export interface FeatureRequest {
   id: string;

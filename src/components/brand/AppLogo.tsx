@@ -1,7 +1,8 @@
 import { ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { APP_NAME } from '@/lib/constants';
 
-interface UpvoteLogoProps {
+interface AppLogoProps {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'light' | 'dark';
   showText?: boolean;
@@ -14,7 +15,7 @@ const sizeMap = {
   lg: { box: 'h-10 w-10', icon: 'h-5 w-5', text: 'text-xl' },
 };
 
-export function UpvoteLogo({ size = 'md', variant = 'dark', showText = true, className }: UpvoteLogoProps) {
+export function AppLogo({ size = 'md', variant = 'dark', showText = true, className }: AppLogoProps) {
   const s = sizeMap[size];
   const isDark = variant === 'dark';
 
@@ -36,7 +37,7 @@ export function UpvoteLogo({ size = 'md', variant = 'dark', showText = true, cla
           s.text,
           isDark ? 'text-white' : 'text-foreground',
         )}>
-          Upstack
+          {APP_NAME}
         </span>
       )}
     </div>

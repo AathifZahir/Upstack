@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import type { VoteState } from '@/components/board/UpvoteButton';
+import type { VoteState } from '@/components/board/VoteButton';
 import { useAuth } from '@/hooks/use-auth';
 import { useVotes } from '@/hooks/use-votes';
-import { UpvoteButton } from '@/components/board/UpvoteButton';
+import { VoteButton } from '@/components/board/VoteButton';
 import { StatusUpdateDropdown } from '@/components/board/StatusUpdateDropdown';
 import { CommentSection } from '@/components/board/CommentSection';
 import { EditRequestSheet } from '@/components/board/EditRequestSheet';
@@ -163,7 +163,7 @@ function RequestDetailPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
             <div className="flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 flex-shrink-0 sm:pt-1">
-              <UpvoteButton
+              <VoteButton
                 upCount={upCount}
                 downCount={downCount}
                 voteState={currentVoteState}

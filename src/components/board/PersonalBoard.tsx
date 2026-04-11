@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Plus, Users, Folder, ArrowRight, Activity, MessageSquare } from 'lucide-react';
 import { FeatureRequestCard } from './FeatureRequestCard';
-import { VoteState } from './UpvoteButton';
+import { VoteState } from './VoteButton';
 
 interface PersonalBoardProps {
   userName: string | null;
