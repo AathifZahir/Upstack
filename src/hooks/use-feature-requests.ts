@@ -25,24 +25,36 @@ interface UseFeatureRequestsOptions {
   sortBy?: 'votes' | 'date';
   userId?: string | null;
   teamId?: string | null;
+  votedByUserId?: string | null;
 }
 
 export function useFeatureRequests(options: UseFeatureRequestsOptions = {}) {
-  const { statusFilter, categoryFilter, searchQuery, sortBy = 'votes', userId, teamId } = options;
+  const { statusFilter, categoryFilter, searchQuery, sortBy = 'votes', userId, teamId, votedByUserId } = options;
   const [requests, setRequests] = useState<FeatureRequest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchRequests = useCallback(async () => {
     let query = supabase.from('feature_requests').select('*');
 
-    if (teamId) {
+    if (votedByUserId) {
+      // Fetch IDs of requests the user has voted on
+      const { data: voteData } = await supabase
+        .from('votes')
+        .select('request_id')
+        .eq('user_id', votedByUserId);
+      
+      const votedIds = voteData?.map(v => v.request_id) || [];
+      if (votedIds.length === 0) {
+        setRequests([]);
+        setIsLoading(false);
+        return;
+      }
+      query = query.in('id', votedIds);
+    } else if (teamId) {
       query = query.eq('team_id', teamId);
     } else if (userId) {
-      // If no teamId is provided but userId is, we fetch all requests submitted by this user
-      // across all teams they belong to.
       query = query.eq('submitter_id', userId);
     } else {
-      // If no teamId and no userId, return nothing
       setRequests([]);
       setIsLoading(false);
       return;
@@ -112,7 +124,7 @@ export function useFeatureRequests(options: UseFeatureRequestsOptions = {}) {
 
     setRequests(enriched);
     setIsLoading(false);
-  }, [statusFilter, categoryFilter, searchQuery, sortBy, userId]);
+  }, [statusFilter, categoryFilter, searchQuery, sortBy, userId, teamId, votedByUserId]);
 
   useEffect(() => {
     fetchRequests();

@@ -43,6 +43,7 @@ function RequestDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [isLead, setIsLead] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -61,6 +62,20 @@ function RequestDetailPage() {
         setDownCount(counts ? Number(counts.down_count) : 0);
         const uv = userVoteRes.data?.[0];
         setUserVoteState(uv ? (uv.vote_type === -1 ? 'down' : 'up') : null);
+
+        // Check if user is lead
+        if (reqRes.data.team_id) {
+          const { data: memberData } = await supabase
+            .from('team_members')
+            .select('role')
+            .eq('team_id', reqRes.data.team_id)
+            .eq('user_id', user.id)
+            .single();
+          setIsLead(memberData?.role === 'lead');
+        } else {
+          // If no team (Personal Space), submitter is lead
+          setIsLead(reqRes.data.submitter_id === user.id);
+        }
 
         const { data: profile } = await supabase
           .from('profiles')
@@ -162,6 +177,7 @@ function RequestDetailPage() {
                   <StatusUpdateDropdown
                     requestId={requestId}
                     currentStatus={request.status}
+                    readOnly={!isAdmin && !isLead}
                   />
                   {request.category && (
                     <span className="inline-flex items-center rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">

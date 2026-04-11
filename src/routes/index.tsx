@@ -50,18 +50,25 @@ function Index() {
   // Combine global admin with team lead for management features
   const canManageBoard = isAdmin || isTeamLead;
 
+  const { requests: myRequests, isLoading: myLoading } = useFeatureRequests({
+    userId: user?.id ?? null,
+  });
+
+  const { requests: supportedRequests, isLoading: supportedLoading } = useFeatureRequests({
+    votedByUserId: user?.id ?? null,
+  });
+
   const { requests, isLoading } = useFeatureRequests({
     statusFilter,
     categoryFilter,
     searchQuery,
     sortBy,
-    userId: user?.id ?? null,
     teamId: currentTeam?.id ?? null,
   });
 
   const { handleVote, getVoteState } = useVotes(user?.id ?? null);
 
-  if (authLoading || (user && teamsLoading)) {
+  if (authLoading || (user && (teamsLoading || myLoading || supportedLoading))) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <Loader2 className="h-6 w-6 animate-spin text-primary" />
@@ -128,7 +135,8 @@ function Index() {
             <PersonalBoard
               userName={profile?.name ?? null}
               teams={teams}
-              myRequests={requests}
+              myRequests={myRequests}
+              supportedRequests={supportedRequests}
               onTeamSelect={handleTeamChange}
               onCreateTeam={() => setCreateTeamOpen(true)}
               onJoinTeam={() => {
@@ -136,7 +144,7 @@ function Index() {
                 if (code) joinTeam(code);
               }}
               onVote={handleVote}
-              getVoteState={(id) => getVoteState(id, requests.find(r => r.id === id)?.vote_state ?? null)}
+              getVoteState={(id) => getVoteState(id, [...myRequests, ...supportedRequests].find(r => r.id === id)?.vote_state ?? null)}
             />
           ) : (
             <>

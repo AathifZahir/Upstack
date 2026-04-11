@@ -10,6 +10,7 @@ interface PersonalBoardProps {
   userName: string | null;
   teams: Team[];
   myRequests: FeatureRequest[];
+  supportedRequests: FeatureRequest[];
   onTeamSelect: (teamId: string) => void;
   onCreateTeam: () => void;
   onJoinTeam: () => void;
@@ -21,12 +22,18 @@ export function PersonalBoard({
   userName,
   teams,
   myRequests,
+  supportedRequests,
   onTeamSelect,
   onCreateTeam,
   onJoinTeam,
   onVote,
   getVoteState
 }: PersonalBoardProps) {
+  // Filter out requests already in myRequests to avoid duplication
+  const filteredSupported = supportedRequests.filter(
+    (sr) => !myRequests.some((mr) => mr.id === sr.id)
+  );
+
   return (
     <div className="space-y-12 py-8">
       {/* Welcome Header */}
@@ -65,6 +72,18 @@ export function PersonalBoard({
             </p>
           </CardContent>
         </Card>
+        <Card className="border-border/60 bg-card/50 backdrop-blur-sm">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium">Supported Ideas</CardTitle>
+            <Plus className="h-4 w-4 text-orange-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{filteredSupported.length}</div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Voted for
+            </p>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Teams Section */}
@@ -75,7 +94,7 @@ export function PersonalBoard({
             <h2 className="text-xl font-semibold">My Teams</h2>
           </div>
           <div className="flex gap-2">
-            <Button variant="ghost" size="sm" onClick={onJoinTeam} className="text-xs">
+            <Button variant="ghost" size="sm" onClick={onJoinTeam} className="text-xs text-muted-foreground hover:text-foreground">
               Join with code
             </Button>
             <Button variant="outline" size="sm" onClick={onCreateTeam} className="text-xs gap-1.5 h-8">
@@ -117,40 +136,79 @@ export function PersonalBoard({
         )}
       </section>
 
-      {/* Recent Activity Section */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-2 border-b border-border/40 pb-4">
-          <Activity className="h-5 w-5 text-primary" />
-          <h2 className="text-xl font-semibold">My Published Ideas</h2>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Recent Activity Section */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-border/40 pb-4">
+            <Activity className="h-5 w-5 text-emerald-500" />
+            <h2 className="text-xl font-semibold">My Published Ideas</h2>
+          </div>
 
-        {myRequests.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center bg-card/30 rounded-2xl border border-border/40">
-            <MessageSquare className="h-12 w-12 text-muted-foreground/20 mb-4" />
-            <h3 className="text-lg font-medium">No ideas yet</h3>
-            <p className="text-muted-foreground max-w-xs mx-auto mt-2">
-              Switch to a team board to start sharing your thoughts with your teammates.
-            </p>
-          </div>
-        ) : (
-          <div className="grid gap-4">
-            {myRequests.slice(0, 5).map((request) => (
-              <div key={request.id} className="relative group">
-                <FeatureRequestCard
-                  request={request}
-                  onVote={onVote}
-                  voteState={getVoteState(request.id)}
-                />
-                <div className="absolute top-4 right-16 hidden sm:block">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 bg-secondary/50 px-2 py-0.5 rounded">
-                    {teams.find(t => t.id === request.team_id)?.name ?? 'Team'}
-                  </span>
+          {myRequests.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center bg-card/30 rounded-2xl border border-border/40">
+              <MessageSquare className="h-12 w-12 text-muted-foreground/20 mb-4" />
+              <h3 className="text-lg font-medium">No ideas yet</h3>
+              <p className="text-muted-foreground max-w-xs mx-auto mt-2 text-sm">
+                Switch to a team board to start sharing your thoughts.
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-4">
+              {myRequests.slice(0, 5).map((request) => (
+                <div key={request.id} className="relative group">
+                  <FeatureRequestCard
+                    request={request}
+                    onVote={onVote}
+                    voteState={getVoteState(request.id)}
+                    className="border-border/60"
+                  />
+                  <div className="absolute top-4 right-16 hidden sm:block">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 bg-secondary/50 px-2 py-0.5 rounded">
+                      {teams.find(t => t.id === request.team_id)?.name ?? 'Team'}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Supported Ideas Section */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-border/40 pb-4">
+            <Plus className="h-5 w-5 text-orange-500" />
+            <h2 className="text-xl font-semibold">Ideas I Support</h2>
           </div>
-        )}
-      </section>
+
+          {filteredSupported.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center bg-card/30 rounded-2xl border border-border/40">
+              <Plus className="h-12 w-12 text-muted-foreground/20 mb-4" />
+              <h3 className="text-lg font-medium">No supported ideas</h3>
+              <p className="text-muted-foreground max-w-xs mx-auto mt-2 text-sm">
+                Ideas you vote for will appear here for easy tracking.
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-4">
+              {filteredSupported.slice(0, 5).map((request) => (
+                <div key={request.id} className="relative group">
+                  <FeatureRequestCard
+                    request={request}
+                    onVote={onVote}
+                    voteState={getVoteState(request.id)}
+                    className="border-border/60"
+                  />
+                  <div className="absolute top-4 right-16 hidden sm:block">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 bg-secondary/50 px-2 py-0.5 rounded">
+                      {teams.find(t => t.id === request.team_id)?.name ?? 'Team'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
     </div>
   );
 }
