@@ -21,7 +21,7 @@ export function useAuth() {
 
   const fetchProfile = useCallback(async (userId: string) => {
     const [profileRes, roleRes] = await Promise.all([
-      supabase.from('profiles').select('name, email, avatar_url').eq('user_id', userId).single(),
+      supabase.from('profiles').select('name, email, avatar_url').eq('user_id', userId).maybeSingle(),
       supabase.rpc('has_role', { _user_id: userId, _role: 'admin' }),
     ]);
     setState(prev => ({

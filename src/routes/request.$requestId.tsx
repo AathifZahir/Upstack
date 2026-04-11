@@ -50,7 +50,7 @@ function RequestDetailPage() {
 
     const fetchDetail = async () => {
       const [reqRes, voteCountsRes, userVoteRes] = await Promise.all([
-        supabase.from('feature_requests').select('*').eq('id', requestId).single(),
+        supabase.from('feature_requests').select('*').eq('id', requestId).maybeSingle(),
         supabase.rpc('get_vote_counts'),
         supabase.from('votes').select('vote_type').eq('request_id', requestId).eq('user_id', user.id),
       ]);
@@ -70,7 +70,7 @@ function RequestDetailPage() {
             .select('role')
             .eq('team_id', reqRes.data.team_id)
             .eq('user_id', user.id)
-            .single();
+            .maybeSingle();
           setIsLead(memberData?.role === 'lead');
         } else {
           // If no team (Personal Space), submitter is lead
@@ -81,7 +81,7 @@ function RequestDetailPage() {
           .from('profiles')
           .select('name')
           .eq('user_id', reqRes.data.submitter_id)
-          .single();
+          .maybeSingle();
         setSubmitterName(profile?.name ?? null);
       }
       setIsLoading(false);

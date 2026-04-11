@@ -29,10 +29,7 @@ export function PersonalBoard({
   onVote,
   getVoteState
 }: PersonalBoardProps) {
-  // Filter out requests already in myRequests to avoid duplication
-  const filteredSupported = supportedRequests.filter(
-    (sr) => !myRequests.some((mr) => mr.id === sr.id)
-  );
+  const filteredSupported = supportedRequests;
 
   return (
     <div className="space-y-12 py-8">
