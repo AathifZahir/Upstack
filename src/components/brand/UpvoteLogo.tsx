@@ -36,7 +36,7 @@ export function UpvoteLogo({ size = 'md', variant = 'dark', showText = true, cla
           s.text,
           isDark ? 'text-white' : 'text-foreground',
         )}>
-          Upvote
+          Upstack
         </span>
       )}
     </div>

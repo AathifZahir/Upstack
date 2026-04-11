@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { lovable } from '@/integrations/lovable';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
@@ -43,10 +42,13 @@ export function AuthPage() {
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
-    const result = await lovable.auth.signInWithOAuth('google', {
-      redirect_uri: window.location.origin,
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
     });
-    if (result.error) {
+    if (error) {
       toast.error('Google sign in failed');
     }
     setIsLoading(false);
@@ -59,10 +61,10 @@ export function AuthPage() {
           <UpvoteLogo size="lg" variant="light" />
           <div>
             <h1 className="text-xl font-bold leading-[0.96] tracking-[-0.02em] text-foreground sm:text-2xl">
-              {isLogin ? 'Sign in to Upvote' : 'Create your account'}
+              {isLogin ? 'Sign in to Upstack' : 'Create your account'}
             </h1>
             <p className="mt-2 text-sm leading-[1.5] text-muted-foreground">
-              {isLogin ? 'Vote on features and submit ideas' : 'Join your team on Upvote'}
+              {isLogin ? 'Vote on features and submit ideas' : 'Join your team on Upstack'}
             </p>
           </div>
         </div>

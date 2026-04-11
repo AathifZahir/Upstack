@@ -112,7 +112,7 @@ export function OnboardingFlow({ userId, onComplete }: OnboardingFlowProps) {
       <div className="w-full max-w-2xl text-center space-y-12">
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Welcome to Upvote
+            Welcome to Upstack
           </h1>
           <p className="text-lg text-muted-foreground max-w-lg mx-auto">
             Before we begin, how would you like to set up your board?

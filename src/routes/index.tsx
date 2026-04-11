@@ -131,10 +131,10 @@ function Index() {
             <>
               <div className="mb-4 sm:mb-6">
                 <h1 className="text-xl sm:text-2xl font-bold text-foreground">
-                  {currentTeam?.name}Board
+                  {currentTeam?.name} Board
                 </h1>
                 <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
-                  Upvote the ideas you support. Submit new ideas to help prioritize what we build next.
+                  Vote on the ideas you support. Submit new ideas to help prioritize what we build next.
                 </p>
               </div>
 

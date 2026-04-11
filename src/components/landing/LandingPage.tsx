@@ -49,7 +49,7 @@ function AppMockup() {
         <div className="space-y-2 bg-background p-4">
           <div className="mb-2">
             <p className="text-[13px] font-semibold text-foreground">Feature ideas</p>
-            <p className="text-[10px] text-muted-foreground">Upvote the ideas you support</p>
+            <p className="text-[10px] text-muted-foreground">Upstack the ideas you support</p>
           </div>
           <MockCard title="Dark mode for the dashboard" votes={24} status="Planned" category="Design" />
           <MockCard title="API rate-limit monitoring" votes={18} status="In progress" category="Backend" />
@@ -339,7 +339,7 @@ export function LandingPage() {
         <footer className="px-6 py-4 sm:px-10">
           <div className="mx-auto flex max-w-6xl items-center justify-between">
             <UpvoteLogo size="sm" variant="light" />
-            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Upvote. All rights reserved.</p>
+            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Upstack. All rights reserved.</p>
           </div>
         </footer>
       </div>
