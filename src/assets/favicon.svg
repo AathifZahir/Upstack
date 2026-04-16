@@ -1,9 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect x="8" y="8" width="48" height="48" rx="10" fill="#000000" />
+  <style>
+    :root {
+      --favicon-bg: black;
+      --favicon-fg: white;
+    }
+  </style>
+  <rect x="8" y="8" width="48" height="48" rx="10" fill="var(--favicon-bg)" />
   <polyline
     points="21,35 32,23 43,35"
     fill="none"
-    stroke="#ffffff"
+    stroke="var(--favicon-fg)"
     stroke-width="5"
     stroke-linecap="round"
     stroke-linejoin="round"
@@ -11,7 +17,7 @@
   <polyline
     points="21,43 32,31 43,43"
     fill="none"
-    stroke="#ffffff"
+    stroke="var(--favicon-fg)"
     stroke-width="5"
     stroke-linecap="round"
     stroke-linejoin="round"

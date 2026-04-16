@@ -67,7 +67,7 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
             <span className="text-sm text-muted-foreground">
               {userName ?? 'User'}
               {isAdmin && (
-                <span className="ml-1.5 rounded-[8px] bg-lavender/15 px-1.5 py-0.5 text-[10px] font-semibold text-[oklch(0.45_0.12_290)]">
+                <span className="ml-1.5 rounded-[8px] bg-admin-badge px-1.5 py-0.5 text-[10px] font-semibold text-admin-badge-foreground">
                   Admin
                 </span>
               )}
@@ -114,7 +114,7 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
             <div className="space-y-1">
               <p className="text-sm font-medium text-foreground">{userName ?? 'User'}</p>
               {isAdmin && (
-                <span className="inline-block rounded-[8px] bg-lavender/15 px-1.5 py-0.5 text-[10px] font-semibold text-[oklch(0.45_0.12_290)]">
+                <span className="inline-block rounded-[8px] bg-admin-badge px-1.5 py-0.5 text-[10px] font-semibold text-admin-badge-foreground">
                   Admin
                 </span>
               )}

@@ -14,13 +14,13 @@ function MockCard({ title, votes, status, category }: {
 }) {
   const statusColors: Record<string, string> = {
     'New': 'bg-muted text-muted-foreground',
-    'Planned': 'bg-lavender/15 text-[oklch(0.45_0.12_290)]',
-    'In progress': 'bg-lavender/15 text-[oklch(0.45_0.12_290)]',
+    'Planned': 'bg-status-planned/15 text-status-planned',
+    'In progress': 'bg-status-progress/15 text-status-progress',
     'Shipped': 'bg-status-shipped/10 text-status-shipped',
   };
 
   return (
-    <div className="flex flex-col gap-2 rounded-[12px] border border-border/60 bg-white p-3">
+    <div className="flex flex-col gap-2 rounded-[12px] border border-border/60 bg-card p-3">
       <p className="text-[13px] font-semibold text-foreground">{title}</p>
       <div className="flex flex-wrap items-center gap-1.5">
         <div className="flex items-center gap-1 rounded-[6px] bg-vote-up/10 px-2 py-0.5 text-[10px] font-semibold text-vote-up">
@@ -46,7 +46,7 @@ function MockCard({ title, votes, status, category }: {
 function AppMockup() {
   return (
     <div className="relative w-full">
-      <div className="overflow-hidden rounded-[16px] border border-border/50 bg-background shadow-[0_20px_60px_-12px_rgba(0,0,0,0.12)]">
+      <div className="overflow-hidden rounded-[16px] border border-border/50 bg-background shadow-[0_20px_60px_-12px_var(--color-panel-shadow)]">
         <div className="space-y-2 bg-background p-4">
           <div className="mb-2">
             <p className="text-[13px] font-semibold text-foreground">Feature ideas</p>
@@ -179,7 +179,7 @@ export function LandingPage() {
         {/* Gradient mesh */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[16px]">
           <div className="absolute -top-[200px] right-[10%] h-[600px] w-[600px] rounded-full bg-lavender/[0.12] blur-[100px]" />
-          <div className="absolute -top-[100px] -left-[200px] h-[500px] w-[500px] rounded-full bg-[oklch(0.65_0.20_350)]/[0.08] blur-[80px]" />
+          <div className="absolute -top-[100px] -left-[200px] h-[500px] w-[500px] rounded-full bg-rose-accent/[0.08] blur-[80px]" />
           <div className="absolute top-[60%] left-[40%] h-[300px] w-[300px] rounded-full bg-lavender/[0.06] blur-[80px]" />
         </div>
 
@@ -219,7 +219,7 @@ export function LandingPage() {
                   </button>
                   <button
                     onClick={scrollToHowItWorks}
-                    className="inline-flex items-center justify-center rounded-[10px] border border-border bg-white px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-muted"
+                    className="inline-flex items-center justify-center rounded-[10px] border border-border bg-card px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-muted"
                   >
                     See how it works
                   </button>
@@ -233,7 +233,7 @@ export function LandingPage() {
                   <div className="pointer-events-none absolute -top-6 -left-6 z-10 h-12 w-12 rounded-full bg-lavender shadow-lg shadow-lavender/20 animate-[float_6s_ease-in-out_infinite] flex items-center justify-center">
                     <ThumbsUp className="h-5 w-5 text-foreground" />
                   </div>
-                  <div className="pointer-events-none absolute -top-4 -right-4 z-10 h-10 w-10 rounded-full bg-[oklch(0.65_0.20_350)] shadow-lg shadow-[oklch(0.65_0.20_350)]/20 animate-[float_5s_ease-in-out_1s_infinite] flex items-center justify-center">
+                  <div className="pointer-events-none absolute -top-4 -right-4 z-10 h-10 w-10 rounded-full bg-rose-accent shadow-lg shadow-rose-accent/20 animate-[float_5s_ease-in-out_1s_infinite] flex items-center justify-center">
                     <Heart className="h-4 w-4 text-foreground" />
                   </div>
                   <div className="pointer-events-none absolute -bottom-5 -right-5 z-10 h-11 w-11 rounded-full bg-foreground shadow-lg shadow-foreground/20 animate-[float_7s_ease-in-out_2s_infinite] flex items-center justify-center">
@@ -259,8 +259,8 @@ export function LandingPage() {
               {steps.map((step, i) => {
                 const iconColors = [
                   'bg-lavender text-foreground',
-                  'bg-[oklch(0.85_0.12_155)] text-foreground',
-                  'bg-[oklch(0.85_0.10_55)] text-foreground',
+                  'bg-mint-accent text-foreground',
+                  'bg-amber-accent text-foreground',
                 ];
                 return (
                   <div key={i} className="relative">
@@ -268,8 +268,8 @@ export function LandingPage() {
                     <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-[10px] ${iconColors[i]}`}>
                       <step.icon className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-semibold tracking-[-0.02em] text-white">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-[1.6] text-white/70">{step.description}</p>
+                    <h3 className="text-lg font-semibold tracking-[-0.02em] text-background">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-[1.6] text-background/70">{step.description}</p>
                   </div>
                 );
               })}
@@ -316,8 +316,8 @@ export function LandingPage() {
             <div className="relative mx-auto max-w-2xl">
               {!showAuth ? (
                 <div className="text-center">
-                  <h2 className="text-3xl font-bold leading-[1.08] tracking-[-0.01em] text-white sm:text-4xl">Ready to shape what's next?</h2>
-                  <p className="mx-auto mt-4 max-w-lg text-base leading-[1.6] text-white/60">
+                  <h2 className="text-3xl font-bold leading-[1.08] tracking-[-0.01em] text-background sm:text-4xl">Ready to shape what's next?</h2>
+                  <p className="mx-auto mt-4 max-w-lg text-base leading-[1.6] text-background/60">
                     Sign in to start submitting ideas, voting on features, and helping your team prioritize what matters.
                   </p>
                   <button

@@ -50,7 +50,7 @@ export function FeatureRequestCard({ request, voteState, onVote, onClick, canVot
         className="group flex flex-col gap-3 rounded-[16px] border border-border bg-card p-4 sm:p-5 transition-all duration-150 hover:border-lavender/30 cursor-pointer"
       >
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-          <h3 className="text-sm sm:text-base font-semibold leading-[1.14] tracking-[-0.02em] text-foreground group-hover:text-[oklch(0.45_0.12_290)] transition-colors line-clamp-2 sm:line-clamp-1">
+          <h3 className="text-sm sm:text-base font-semibold leading-[1.14] tracking-[-0.02em] text-foreground group-hover:text-status-planned transition-colors line-clamp-2 sm:line-clamp-1">
             {request.title}
           </h3>
           <p className="text-xs sm:text-sm leading-[1.5] text-muted-foreground line-clamp-2">

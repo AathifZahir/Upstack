@@ -59,6 +59,17 @@
   --color-cream-foreground: var(--cream-foreground);
   --color-lavender: var(--lavender);
   --color-hero: var(--hero);
+  --color-rose-accent: var(--rose-accent);
+  --color-mint-accent: var(--mint-accent);
+  --color-amber-accent: var(--amber-accent);
+  --color-admin-badge: var(--admin-badge);
+  --color-admin-badge-foreground: var(--admin-badge-foreground);
+  --color-admin-badge-border: var(--admin-badge-border);
+  --color-panel-shadow: var(--panel-shadow);
+  --color-google-blue: var(--google-blue);
+  --color-google-green: var(--google-green);
+  --color-google-yellow: var(--google-yellow);
+  --color-google-red: var(--google-red);
   --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
@@ -134,6 +145,17 @@
   --cream-foreground: oklch(0.22 0.01 60);
   --lavender: oklch(0.82 0.10 290);
   --hero: oklch(0.15 0.04 280);
+  --rose-accent: oklch(0.65 0.20 350);
+  --mint-accent: oklch(0.85 0.12 155);
+  --amber-accent: oklch(0.85 0.10 55);
+  --admin-badge: oklch(0.95 0.04 85);
+  --admin-badge-foreground: oklch(0.55 0.12 290);
+  --admin-badge-border: oklch(0.89 0.06 85);
+  --panel-shadow: rgba(0, 0, 0, 0.12);
+  --google-blue: #4285f4;
+  --google-green: #34a853;
+  --google-yellow: #fbbc05;
+  --google-red: #ea4335;
 }
 
 @layer base {
