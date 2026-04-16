@@ -12,6 +12,9 @@ export function AuthPage() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const authRedirectUrl =
+    import.meta.env.VITE_AUTH_REDIRECT_URL ||
+    (typeof window !== 'undefined' ? window.location.origin : undefined);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +31,7 @@ export function AuthPage() {
         password,
         options: {
           data: { full_name: name },
-          emailRedirectTo: window.location.origin,
+          emailRedirectTo: authRedirectUrl,
         },
       });
       if (error) {
@@ -46,7 +49,7 @@ export function AuthPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: authRedirectUrl,
       },
     });
     if (error) {

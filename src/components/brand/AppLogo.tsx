@@ -26,10 +26,16 @@ export function AppLogo({ size = 'md', variant = 'dark', showText = true, classN
         s.box,
         isDark ? 'bg-lavender' : 'bg-foreground',
       )}>
-        <ChevronUp
-          className={cn(s.icon, 'text-white')}
-          strokeWidth={3}
-        />
+        <span className="relative inline-flex h-full w-full items-center justify-center">
+          <ChevronUp
+            className={cn(s.icon, 'absolute -translate-y-[18%] text-white')}
+            strokeWidth={3}
+          />
+          <ChevronUp
+            className={cn(s.icon, 'absolute translate-y-[18%] text-white')}
+            strokeWidth={3}
+          />
+        </span>
       </div>
       {showText && (
         <span className={cn(
