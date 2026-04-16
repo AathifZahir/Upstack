@@ -30,7 +30,7 @@ Upstack is a high-performance feature request and upvoting platform built for pr
 - **Security**: Supabase Auth + Row Level Security (RLS)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) (Radix UI)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com/) via Wrangler
+- **Deployment**: [Vercel](https://vercel.com/) (Recommended)
 
 ## Getting Started
 
@@ -94,14 +94,12 @@ Upstack utilizes a decentralized data flow where the frontend communicates direc
 
 ## Deployment
 
-### Cloudflare Pages
-The project is optimized for Cloudflare's global network.
+### Vercel
+The project is optimized for deployment on Vercel.
 
-1. Build the project: `bun build`
-2. Deploy via Wrangler:
-```bash
-wrangler pages deploy dist
-```
+1. Connect your repository to Vercel.
+2. The build command should be `bun run build`.
+3. The output directory is automatically detected.
 
 ---
 

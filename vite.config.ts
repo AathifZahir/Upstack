@@ -1,7 +1,6 @@
 import path from "path";
 import { defineConfig, loadEnv } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
-import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -161,10 +160,6 @@ function devServerFnErrorLogger() {
 }
 
 export default defineConfig(({ command, mode }) => {
-  // Use Cloudflare Workers plugin for builds ONLY if requested and NOT on Vercel
-  // This prevents build output conflicts when hosting on Vercel
-  const useCloudflare = command === "build" && !!process.env.CLOUDFLARE && !process.env.VERCEL;
-
   // Load VITE_ env vars and define them for SSR
   // Note: loadEnv strips the prefix, so we add it back
   const env = loadEnv(mode, process.cwd(), "VITE_");
@@ -192,7 +187,6 @@ export default defineConfig(({ command, mode }) => {
       }),
       devClientErrorLogger(),
       devServerFnErrorLogger(),
-      ...(useCloudflare ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
       tanstackStart(),
       viteReact(),
     ].filter(Boolean),
