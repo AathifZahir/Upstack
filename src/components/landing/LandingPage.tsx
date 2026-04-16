@@ -337,10 +337,12 @@ export function LandingPage() {
         </section>
 
         {/* Footer */}
-        <footer className="px-6 py-4 sm:px-10">
-          <div className="mx-auto flex max-w-6xl items-center justify-between">
+        <footer className="px-6 py-6 sm:px-10">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-4">
             <AppLogo size="sm" variant="light" />
-            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
+            <p className="max-w-[280px] text-center text-xs text-muted-foreground sm:max-w-none sm:text-right">
+              © {new Date().getFullYear()} {APP_NAME}. All rights reserved.
+            </p>
           </div>
         </footer>
       </div>

@@ -27,7 +27,7 @@ export function VoteButton({ upCount, downCount, voteState, onVote, disabled }: 
       <button
         onClick={(e) => handleClick(e, 'up')}
         disabled={disabled}
-        className={`flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-xs font-semibold transition-all duration-150
+        className={`flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-[8px] px-3 py-2 text-xs font-semibold transition-all duration-150 sm:min-h-0 sm:min-w-0 sm:justify-start sm:py-1.5
           ${voteState === 'up'
             ? 'bg-vote-up text-primary-foreground shadow-sm shadow-vote-up/30'
             : 'bg-vote-up/10 text-vote-up hover:bg-vote-up/20'
@@ -43,7 +43,7 @@ export function VoteButton({ upCount, downCount, voteState, onVote, disabled }: 
       <button
         onClick={(e) => handleClick(e, 'down')}
         disabled={disabled}
-        className={`flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-xs font-semibold transition-all duration-150
+        className={`flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-[8px] px-3 py-2 text-xs font-semibold transition-all duration-150 sm:min-h-0 sm:min-w-0 sm:justify-start sm:py-1.5
           ${voteState === 'down'
             ? 'bg-vote-down text-primary-foreground shadow-sm shadow-vote-down/30'
             : 'bg-vote-down/10 text-vote-down hover:bg-vote-down/20'

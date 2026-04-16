@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 import { StatusBadge } from './StatusBadge';
 import { VoteButton, type VoteState } from './VoteButton';
 import { formatDistanceToNow } from 'date-fns';
@@ -23,9 +24,10 @@ interface FeatureRequestCardProps {
   onVote: (requestId: string, currentState: VoteState, type: 'up' | 'down') => void;
   onClick: (requestId: string) => void;
   canVote: boolean;
+  className?: string;
 }
 
-export function FeatureRequestCard({ request, voteState, onVote, onClick, canVote }: FeatureRequestCardProps) {
+export function FeatureRequestCard({ request, voteState, onVote, onClick, canVote, className }: FeatureRequestCardProps) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -47,7 +49,10 @@ export function FeatureRequestCard({ request, voteState, onVote, onClick, canVot
     <>
       <div
         onClick={() => onClick(request.id)}
-        className="group flex flex-col gap-3 rounded-[16px] border border-border bg-card p-4 sm:p-5 transition-all duration-150 hover:border-accent/40 cursor-pointer"
+        className={cn(
+          'group flex flex-col gap-3 rounded-[16px] border border-border bg-card p-4 sm:p-5 transition-all duration-150 hover:border-accent/40 cursor-pointer',
+          className,
+        )}
       >
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <h3 className="text-sm sm:text-base font-semibold leading-[1.14] tracking-[-0.02em] text-foreground group-hover:text-status-planned transition-colors line-clamp-2 sm:line-clamp-1">

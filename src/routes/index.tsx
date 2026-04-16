@@ -133,7 +133,7 @@ function Index() {
           onCreateNew={() => setCreateTeamOpen(true)}
         />
 
-        <main className="mx-auto max-w-4xl px-4 sm:px-6 py-4 sm:py-6">
+        <main className="mx-auto max-w-4xl px-4 sm:px-6 md:max-w-5xl py-4 sm:py-6">
           {!activeTeamId ? (
             <PersonalBoard
               userName={profile?.name ?? null}
@@ -159,6 +159,7 @@ function Index() {
 
               <TeamManagement 
                 teamId={currentTeam.id}
+                teamName={currentTeam.name}
                 inviteCode={currentTeam.invite_code}
                 isLead={isTeamLead}
               />

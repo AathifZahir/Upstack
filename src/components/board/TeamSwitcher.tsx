@@ -36,7 +36,7 @@ export function TeamSwitcher({ teams, currentTeam, onSelect, onCreateNew, onMana
           variant="ghost"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between px-2 hover:bg-secondary/50 group"
+          className="h-9 min-w-0 max-w-[min(200px,calc(100vw-10.5rem))] shrink justify-between px-2 hover:bg-secondary/50 group sm:h-10 sm:w-[200px] sm:max-w-none"
         >
           <div className="flex items-center gap-2 overflow-hidden">
             <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-border bg-background text-[10px] font-bold text-muted-foreground group-hover:border-foreground/20 group-hover:text-foreground">
