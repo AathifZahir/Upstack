@@ -14,7 +14,9 @@ import { OnboardingFlow } from '@/components/team/OnboardingFlow';
 import { CreateTeamModal } from '@/components/team/CreateTeamModal';
 import { LandingPage } from '@/components/landing/LandingPage';
 import { Toaster } from '@/components/ui/sonner';
+import { JoinTeamModal } from '@/components/team/JoinTeamModal';
 import { PersonalBoard } from '@/components/board/PersonalBoard';
+import { TeamManagement } from '@/components/team/TeamManagement';
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -30,6 +32,7 @@ function Index() {
   const [sortBy, setSortBy] = useState<'votes' | 'date'>('votes');
   const [submitOpen, setSubmitOpen] = useState(false);
   const [createTeamOpen, setCreateTeamOpen] = useState(false);
+  const [joinTeamOpen, setJoinTeamOpen] = useState(false);
   const [activeTeamId, setActiveTeamId] = useState<string | null>(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('activeTeamId');
@@ -50,18 +53,25 @@ function Index() {
   // Combine global admin with team lead for management features
   const canManageBoard = isAdmin || isTeamLead;
 
+  const { requests: myRequests, isLoading: myLoading } = useFeatureRequests({
+    userId: user?.id ?? null,
+  });
+
+  const { requests: supportedRequests, isLoading: supportedLoading } = useFeatureRequests({
+    votedByUserId: user?.id ?? null,
+  });
+
   const { requests, isLoading } = useFeatureRequests({
     statusFilter,
     categoryFilter,
     searchQuery,
     sortBy,
-    userId: user?.id ?? null,
     teamId: currentTeam?.id ?? null,
   });
 
   const { handleVote, getVoteState } = useVotes(user?.id ?? null);
 
-  if (authLoading || (user && teamsLoading)) {
+  if (authLoading || (user && (teamsLoading || myLoading || supportedLoading))) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <Loader2 className="h-6 w-6 animate-spin text-primary" />
@@ -128,15 +138,13 @@ function Index() {
             <PersonalBoard
               userName={profile?.name ?? null}
               teams={teams}
-              myRequests={requests}
+              myRequests={myRequests}
+              supportedRequests={supportedRequests}
               onTeamSelect={handleTeamChange}
               onCreateTeam={() => setCreateTeamOpen(true)}
-              onJoinTeam={() => {
-                const code = prompt('Enter 6-digit invite code:');
-                if (code) joinTeam(code);
-              }}
+              onJoinTeam={() => setJoinTeamOpen(true)}
               onVote={handleVote}
-              getVoteState={(id) => getVoteState(id, requests.find(r => r.id === id)?.vote_state ?? null)}
+              getVoteState={(id) => getVoteState(id, [...myRequests, ...supportedRequests].find(r => r.id === id)?.vote_state ?? null)}
             />
           ) : (
             <>
@@ -148,6 +156,12 @@ function Index() {
                   Vote on the ideas you support. Submit new ideas to help prioritize what we build next.
                 </p>
               </div>
+
+              <TeamManagement 
+                teamId={currentTeam.id}
+                inviteCode={currentTeam.invite_code}
+                isLead={isTeamLead}
+              />
 
               <FilterBar
                 statusFilter={statusFilter}
@@ -207,6 +221,15 @@ function Index() {
           onCreate={async (name) => {
             const team = await createTeam(name);
             if (team) handleTeamChange(team.id);
+          }}
+        />
+
+        <JoinTeamModal
+          open={joinTeamOpen}
+          onOpenChange={setJoinTeamOpen}
+          onJoin={async (code) => {
+            const team = await joinTeam(code);
+            return !!team;
           }}
         />
       </div>

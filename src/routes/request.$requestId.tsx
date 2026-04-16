@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import type { VoteState } from '@/components/board/UpvoteButton';
+import type { VoteState } from '@/components/board/VoteButton';
 import { useAuth } from '@/hooks/use-auth';
 import { useVotes } from '@/hooks/use-votes';
-import { UpvoteButton } from '@/components/board/UpvoteButton';
+import { VoteButton } from '@/components/board/VoteButton';
 import { StatusUpdateDropdown } from '@/components/board/StatusUpdateDropdown';
 import { CommentSection } from '@/components/board/CommentSection';
 import { EditRequestSheet } from '@/components/board/EditRequestSheet';
@@ -43,13 +43,14 @@ function RequestDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [isLead, setIsLead] = useState(false);
 
   useEffect(() => {
     if (!user) return;
 
     const fetchDetail = async () => {
       const [reqRes, voteCountsRes, userVoteRes] = await Promise.all([
-        supabase.from('feature_requests').select('*').eq('id', requestId).single(),
+        supabase.from('feature_requests').select('*').eq('id', requestId).maybeSingle(),
         supabase.rpc('get_vote_counts'),
         supabase.from('votes').select('vote_type').eq('request_id', requestId).eq('user_id', user.id),
       ]);
@@ -62,11 +63,25 @@ function RequestDetailPage() {
         const uv = userVoteRes.data?.[0];
         setUserVoteState(uv ? (uv.vote_type === -1 ? 'down' : 'up') : null);
 
+        // Check if user is lead
+        if (reqRes.data.team_id) {
+          const { data: memberData } = await supabase
+            .from('team_members')
+            .select('role')
+            .eq('team_id', reqRes.data.team_id)
+            .eq('user_id', user.id)
+            .maybeSingle();
+          setIsLead(memberData?.role === 'lead');
+        } else {
+          // If no team (Personal Space), submitter is lead
+          setIsLead(reqRes.data.submitter_id === user.id);
+        }
+
         const { data: profile } = await supabase
           .from('profiles')
           .select('name')
           .eq('user_id', reqRes.data.submitter_id)
-          .single();
+          .maybeSingle();
         setSubmitterName(profile?.name ?? null);
       }
       setIsLoading(false);
@@ -148,7 +163,7 @@ function RequestDetailPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
             <div className="flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 flex-shrink-0 sm:pt-1">
-              <UpvoteButton
+              <VoteButton
                 upCount={upCount}
                 downCount={downCount}
                 voteState={currentVoteState}
@@ -162,6 +177,7 @@ function RequestDetailPage() {
                   <StatusUpdateDropdown
                     requestId={requestId}
                     currentStatus={request.status}
+                    readOnly={!isAdmin && !isLead}
                   />
                   {request.category && (
                     <span className="inline-flex items-center rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">

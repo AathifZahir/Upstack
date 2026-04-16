@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Plus, LogOut, Menu } from 'lucide-react';
-import { UpvoteLogo } from '@/components/brand/UpvoteLogo';
+import { Plus, LogOut, Menu, UserPlus } from 'lucide-react';
+import { AppLogo } from '@/components/brand/AppLogo';
 import { InviteModal } from '@/components/team/InviteModal';
 import { TeamSwitcher } from './TeamSwitcher';
 import { Team } from '@/hooks/use-teams';
@@ -36,7 +36,7 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
             className="transition-opacity hover:opacity-80 active:scale-95"
             title="Personal Board"
           >
-            <UpvoteLogo size="md" variant="light" />
+            <AppLogo size="md" variant="light" />
           </button>
           <div className="h-6 w-px bg-border/60 mx-1 hidden sm:block" />
           <TeamSwitcher
@@ -50,6 +50,15 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
 
         {/* Desktop actions */}
         <div className="hidden sm:flex items-center gap-4">
+          {currentTeam && isAdmin && (
+            <button
+              onClick={() => setInviteOpen(true)}
+              className="flex h-8 w-8 items-center justify-center rounded-[8px] text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors mr-1"
+              title="Invite Teammates"
+            >
+              <UserPlus className="h-4 w-4" />
+            </button>
+          )}
           <Button onClick={onSubmitClick} size="sm" className="gap-1.5 bg-foreground text-background font-semibold hover:opacity-90">
             <Plus className="h-4 w-4" />
             Submit idea
@@ -75,6 +84,14 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
 
         {/* Mobile actions */}
         <div className="flex sm:hidden items-center gap-2">
+          {currentTeam && isAdmin && (
+            <button
+              onClick={() => setInviteOpen(true)}
+              className="flex h-9 w-9 items-center justify-center rounded-[8px] text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+            >
+              <UserPlus className="h-4 w-4" />
+            </button>
+          )}
           <Button onClick={onSubmitClick} size="sm" className="gap-1.5 h-9 px-3 bg-foreground text-background font-semibold hover:opacity-90">
             <Plus className="h-4 w-4" />
           </Button>

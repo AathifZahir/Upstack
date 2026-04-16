@@ -63,7 +63,7 @@ export function useTeams(userId: string | null) {
         owner_id: userId,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       toast.error('Failed to create team');
@@ -83,7 +83,7 @@ export function useTeams(userId: string | null) {
       .from('teams')
       .select('id, name')
       .eq('invite_code', inviteCode)
-      .single();
+      .maybeSingle();
 
     if (teamError || !team) {
       toast.error('Invalid invite code');
@@ -146,22 +146,47 @@ export function useTeams(userId: string | null) {
   };
 
   const getTeamMembers = async (teamId: string) => {
-    const { data, error } = await supabase
+    // 1. Fetch team members
+    const { data: members, error: membersError } = await supabase
       .from('team_members')
-      .select('user_id, role, profile:user_profiles(name, email)')
+      .select('user_id, role')
       .eq('team_id', teamId);
 
-    if (error) {
-      console.error('Error fetching members:', error);
+    if (membersError) {
+      console.error('Error fetching members:', membersError);
       return [];
     }
 
-    return data.map(m => ({
-      user_id: m.user_id,
-      role: m.role as 'lead' | 'member',
-      name: (m.profile as any)?.name ?? 'Unknown User',
-      email: (m.profile as any)?.email ?? ''
-    }));
+    if (!members || members.length === 0) return [];
+
+    // 2. Fetch profiles for these users
+    const userIds = members.map(m => m.user_id);
+    const { data: profiles, error: profilesError } = await supabase
+      .from('profiles')
+      .select('user_id, name, email')
+      .in('user_id', userIds);
+
+    if (profilesError) {
+      console.error('Error fetching member profiles:', profilesError);
+      // Return members anyway but with unknown names
+      return members.map(m => ({
+        user_id: m.user_id,
+        role: m.role as 'lead' | 'member',
+        name: 'Unknown User',
+        email: ''
+      }));
+    }
+
+    // 3. Join in-memory
+    return members.map(m => {
+      const profile = profiles?.find(p => p.user_id === m.user_id);
+      return {
+        user_id: m.user_id,
+        role: m.role as 'lead' | 'member',
+        name: profile?.name ?? 'Unknown User',
+        email: profile?.email ?? ''
+      };
+    });
   };
 
   return { teams, isLoading, createTeam, joinTeam, deleteTeam, removeMember, getTeamMembers, refetch: fetchTeams };

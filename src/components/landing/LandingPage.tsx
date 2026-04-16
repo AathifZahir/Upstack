@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ThumbsUp, ThumbsDown, Heart, Rocket, ArrowRight, Lightbulb, Menu, X, Zap, BarChart3, Shield, Users } from 'lucide-react';
 import { AuthPage } from '@/components/auth/AuthPage';
-import { UpvoteLogo } from '@/components/brand/UpvoteLogo';
+import { AppLogo } from '@/components/brand/AppLogo';
+import { APP_NAME } from '@/lib/constants';
 
 
 
@@ -49,7 +50,7 @@ function AppMockup() {
         <div className="space-y-2 bg-background p-4">
           <div className="mb-2">
             <p className="text-[13px] font-semibold text-foreground">Feature ideas</p>
-            <p className="text-[10px] text-muted-foreground">Upstack the ideas you support</p>
+            <p className="text-[10px] text-muted-foreground">{APP_NAME} the ideas you support</p>
           </div>
           <MockCard title="Dark mode for the dashboard" votes={24} status="Planned" category="Design" />
           <MockCard title="API rate-limit monitoring" votes={18} status="In progress" category="Backend" />
@@ -72,7 +73,7 @@ const steps = [
     num: '02',
     icon: ThumbsUp,
     title: 'Vote and discuss',
-    description: 'Upvote or downvote ideas. Leave comments to refine proposals and add context.',
+    description: 'Vote or downvote ideas. Leave comments to refine proposals and add context.',
   },
   {
     num: '03',
@@ -136,7 +137,7 @@ export function LandingPage() {
       {/* Nav — appears on scroll */}
       <nav className={`fixed top-0 left-0 right-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur-xl px-6 py-4 sm:px-8 md:px-12 transition-all duration-300 ${showNav ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
         <div className="mx-auto flex max-w-6xl h-8 items-center justify-between">
-          <UpvoteLogo size="md" variant="light" />
+          <AppLogo size="md" variant="light" />
 
           <div className="hidden items-center gap-8 sm:flex">
             <button onClick={scrollToHowItWorks} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
@@ -198,7 +199,7 @@ export function LandingPage() {
               {/* Left copy */}
               <div className="flex-1 max-w-xl">
                 <div className="mb-8">
-                  <UpvoteLogo size="lg" variant="light" />
+                  <AppLogo size="lg" variant="light" />
                 </div>
 
                 <h1 className="text-3xl font-bold leading-[1.08] tracking-[-0.02em] text-foreground sm:text-4xl md:text-5xl lg:text-[56px]">
@@ -206,7 +207,7 @@ export function LandingPage() {
                 </h1>
 
                 <p className="mt-6 max-w-md text-base leading-[1.6] text-muted-foreground sm:mt-8 sm:text-lg">
-                  Submit feature ideas, upvote what matters most, and let the best ideas rise to the top — so you always ship the right thing.
+                  Submit feature ideas, vote on what matters most, and let the best ideas rise to the top — so you always ship the right thing.
                 </p>
 
                 <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -338,8 +339,8 @@ export function LandingPage() {
         {/* Footer */}
         <footer className="px-6 py-4 sm:px-10">
           <div className="mx-auto flex max-w-6xl items-center justify-between">
-            <UpvoteLogo size="sm" variant="light" />
-            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Upstack. All rights reserved.</p>
+            <AppLogo size="sm" variant="light" />
+            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
           </div>
         </footer>
       </div>

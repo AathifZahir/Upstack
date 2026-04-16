@@ -1,5 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-
+import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -31,15 +31,15 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Upstack — Vote on what to build next" },
-      { name: "description", content: "Submit ideas, upvote favorites, and help prioritize what gets built next." },
-      { name: "author", content: "Upstack Team" },
-      { property: "og:title", content: "Upstack — Vote on what to build next" },
-      { property: "og:description", content: "Submit ideas, upvote favorites, and help prioritize what gets built next." },
+      { title: `${APP_NAME} — Vote on what to build next` },
+      { name: "description", content: APP_DESCRIPTION },
+      { name: "author", content: `${APP_NAME} Team` },
+      { property: "og:title", content: `${APP_NAME} — Vote on what to build next` },
+      { property: "og:description", content: APP_DESCRIPTION },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Upstack — Vote on what to build next" },
-      { name: "twitter:description", content: "Submit ideas, upvote favorites, and help prioritize what gets built next." },
+      { name: "twitter:title", content: `${APP_NAME} — Vote on what to build next` },
+      { name: "twitter:description", content: APP_DESCRIPTION },
     ],
     links: [
       {

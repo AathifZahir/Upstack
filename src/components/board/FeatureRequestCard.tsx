@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StatusBadge } from './StatusBadge';
-import { UpvoteButton, type VoteState } from './UpvoteButton';
+import { VoteButton, type VoteState } from './VoteButton';
 import { formatDistanceToNow } from 'date-fns';
 import { Trash2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -58,7 +58,7 @@ export function FeatureRequestCard({ request, voteState, onVote, onClick, canVot
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <UpvoteButton
+          <VoteButton
             upCount={request.up_count}
             downCount={request.down_count}
             voteState={voteState}

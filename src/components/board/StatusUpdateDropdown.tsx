@@ -13,9 +13,10 @@ import {
 interface StatusUpdateDropdownProps {
   requestId: string;
   currentStatus: string;
+  readOnly?: boolean;
 }
 
-export function StatusUpdateDropdown({ requestId, currentStatus }: StatusUpdateDropdownProps) {
+export function StatusUpdateDropdown({ requestId, currentStatus, readOnly = false }: StatusUpdateDropdownProps) {
   const [updating, setUpdating] = useState(false);
 
   const handleStatusChange = async (newStatus: string) => {
@@ -36,8 +37,8 @@ export function StatusUpdateDropdown({ requestId, currentStatus }: StatusUpdateD
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild disabled={updating}>
-        <button className="cursor-pointer">
+      <DropdownMenuTrigger asChild disabled={updating || readOnly}>
+        <button className={readOnly ? "cursor-default" : "cursor-pointer"}>
           <StatusBadge status={currentStatus} />
         </button>
       </DropdownMenuTrigger>
