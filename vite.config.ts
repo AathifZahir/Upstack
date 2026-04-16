@@ -161,9 +161,9 @@ function devServerFnErrorLogger() {
 }
 
 export default defineConfig(({ command, mode }) => {
-  // Use Cloudflare Workers plugin for builds (produces worker output)
-  // Skip for dev server (command=serve) since workerd runtime isn't available
-  const useCloudflare = command === "build";
+  // Use Cloudflare Workers plugin for builds ONLY if requested and NOT on Vercel
+  // This prevents build output conflicts when hosting on Vercel
+  const useCloudflare = command === "build" && !!process.env.CLOUDFLARE && !process.env.VERCEL;
 
   // Load VITE_ env vars and define them for SSR
   // Note: loadEnv strips the prefix, so we add it back
