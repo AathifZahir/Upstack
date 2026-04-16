@@ -31,7 +31,7 @@ export function FilterBar({
             placeholder="Search ideas..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="h-11 sm:h-9 w-full rounded-[8px] border border-input bg-card pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-lavender/30"
+            className="h-11 sm:h-9 w-full rounded-[8px] border border-input bg-card pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40"
           />
         </div>
         <div className="flex items-center gap-0.5 rounded-[8px] border border-border bg-card p-0.5 self-start sm:self-auto">
@@ -78,7 +78,7 @@ export function FilterBar({
           <select
             value={categoryFilter ?? ''}
             onChange={(e) => onCategoryChange(e.target.value || null)}
-            className="h-9 sm:h-7 rounded-[8px] border border-input bg-card px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-lavender/30"
+            className="h-9 sm:h-7 rounded-[8px] border border-input bg-card px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40"
           >
             <option value="">All</option>
             {CATEGORY_OPTIONS.map(cat => (

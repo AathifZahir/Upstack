@@ -24,15 +24,15 @@ export function AppLogo({ size = 'md', variant = 'dark', showText = true, classN
       <div className={cn(
         'flex items-center justify-center rounded-[8px]',
         s.box,
-        isDark ? 'bg-lavender' : 'bg-foreground',
+        isDark ? 'bg-accent' : 'bg-foreground',
       )}>
         <span className="relative inline-flex h-full w-full items-center justify-center">
           <ChevronUp
-            className={cn(s.icon, 'absolute -translate-y-[18%] text-white')}
+            className={cn(s.icon, 'absolute -translate-y-[18%] text-primary-foreground')}
             strokeWidth={3}
           />
           <ChevronUp
-            className={cn(s.icon, 'absolute translate-y-[18%] text-white')}
+            className={cn(s.icon, 'absolute translate-y-[18%] text-primary-foreground')}
             strokeWidth={3}
           />
         </span>
@@ -41,7 +41,7 @@ export function AppLogo({ size = 'md', variant = 'dark', showText = true, classN
         <span className={cn(
           'font-bold tracking-[-0.02em]',
           s.text,
-          isDark ? 'text-white' : 'text-foreground',
+          isDark ? 'text-primary-foreground' : 'text-foreground',
         )}>
           {APP_NAME}
         </span>

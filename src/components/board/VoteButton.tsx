@@ -29,7 +29,7 @@ export function VoteButton({ upCount, downCount, voteState, onVote, disabled }: 
         disabled={disabled}
         className={`flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-xs font-semibold transition-all duration-150
           ${voteState === 'up'
-            ? 'bg-vote-up text-white shadow-sm shadow-vote-up/30'
+            ? 'bg-vote-up text-primary-foreground shadow-sm shadow-vote-up/30'
             : 'bg-vote-up/10 text-vote-up hover:bg-vote-up/20'
           }
           ${bouncing === 'up' ? 'vote-bounce' : ''}
@@ -45,7 +45,7 @@ export function VoteButton({ upCount, downCount, voteState, onVote, disabled }: 
         disabled={disabled}
         className={`flex items-center gap-1.5 rounded-[8px] px-3 py-1.5 text-xs font-semibold transition-all duration-150
           ${voteState === 'down'
-            ? 'bg-vote-down text-white shadow-sm shadow-vote-down/30'
+            ? 'bg-vote-down text-primary-foreground shadow-sm shadow-vote-down/30'
             : 'bg-vote-down/10 text-vote-down hover:bg-vote-down/20'
           }
           ${bouncing === 'down' ? 'vote-bounce' : ''}

@@ -88,7 +88,7 @@ export function InviteModal({ open, onOpenChange, teamName, inviteCode }: Invite
             </div>
           </form>
 
-          <div className="rounded-lg bg-lavender/10 p-3 text-xs text-muted-foreground">
+          <div className="rounded-lg bg-accent/20 p-3 text-xs text-muted-foreground">
             Anyone with the code can join as a member and see all ideas in this team.
           </div>
         </div>
