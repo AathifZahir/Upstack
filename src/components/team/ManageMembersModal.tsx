@@ -94,8 +94,8 @@ export function ManageMembersModal({
                     <span className="text-sm font-semibold flex items-center gap-1.5">
                       {member.name}
                       {member.role === 'lead' && (
-                        <Badge variant="secondary" className="h-4 px-1 text-[8px] uppercase tracking-wider bg-amber-100 text-amber-700 hover:bg-amber-100 border-amber-200">
-                          <Shield className="h-2 w-2 mr-0.5 fill-amber-700" />
+                        <Badge variant="secondary" className="h-4 px-1 text-[8px] uppercase tracking-wider bg-admin-badge text-admin-badge-foreground hover:bg-admin-badge border-admin-badge-border">
+                          <Shield className="h-2 w-2 mr-0.5 fill-admin-badge-foreground" />
                           Lead
                         </Badge>
                       )}

@@ -29,8 +29,8 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-4 sm:px-6">
-        <div className="flex items-center gap-2 sm:gap-4">
+      <div className="mx-auto flex h-14 max-w-4xl items-center justify-between gap-2 px-4 sm:px-6 md:max-w-5xl">
+        <div className="flex min-w-0 flex-1 items-center gap-2 sm:max-w-none sm:flex-none sm:gap-4">
           <button 
             onClick={() => onTeamSelect(null)}
             className="transition-opacity hover:opacity-80 active:scale-95"
@@ -67,7 +67,7 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
             <span className="text-sm text-muted-foreground">
               {userName ?? 'User'}
               {isAdmin && (
-                <span className="ml-1.5 rounded-[8px] bg-lavender/15 px-1.5 py-0.5 text-[10px] font-semibold text-[oklch(0.45_0.12_290)]">
+                <span className="ml-1.5 rounded-[8px] bg-admin-badge px-1.5 py-0.5 text-[10px] font-semibold text-admin-badge-foreground">
                   Admin
                 </span>
               )}
@@ -114,7 +114,7 @@ export function Header({ userName, isAdmin, onSubmitClick, onSignOut, teams, cur
             <div className="space-y-1">
               <p className="text-sm font-medium text-foreground">{userName ?? 'User'}</p>
               {isAdmin && (
-                <span className="inline-block rounded-[8px] bg-lavender/15 px-1.5 py-0.5 text-[10px] font-semibold text-[oklch(0.45_0.12_290)]">
+                <span className="inline-block rounded-[8px] bg-admin-badge px-1.5 py-0.5 text-[10px] font-semibold text-admin-badge-foreground">
                   Admin
                 </span>
               )}

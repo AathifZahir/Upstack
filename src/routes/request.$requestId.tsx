@@ -152,7 +152,7 @@ function RequestDetailPage() {
   return (
     <>
       <div className="min-h-screen bg-background">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 py-6 sm:py-8">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-4xl py-6 sm:py-8">
           <button
             onClick={() => navigate({ to: '/' })}
             className="mb-4 sm:mb-6 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors min-h-[44px] sm:min-h-0"

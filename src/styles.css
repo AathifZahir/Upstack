@@ -59,81 +59,94 @@
   --color-cream-foreground: var(--cream-foreground);
   --color-lavender: var(--lavender);
   --color-hero: var(--hero);
+  --color-rose-accent: var(--rose-accent);
+  --color-mint-accent: var(--mint-accent);
+  --color-amber-accent: var(--amber-accent);
+  --color-admin-badge: var(--admin-badge);
+  --color-admin-badge-foreground: var(--admin-badge-foreground);
+  --color-admin-badge-border: var(--admin-badge-border);
+  --color-panel-shadow: var(--panel-shadow);
+  --color-google-blue: var(--google-blue);
+  --color-google-green: var(--google-green);
+  --color-google-yellow: var(--google-yellow);
+  --color-google-red: var(--google-red);
   --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 :root {
   --radius: 0.5rem;
 
-  /* Superhuman-inspired palette */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.22 0.01 60);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.01 60);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.01 60);
+  /* Matcha + coal core palette */
+  --background: #ffffff;
+  --foreground: #222222;
+  --card: #ffffff;
+  --card-foreground: #222222;
+  --popover: #ffffff;
+  --popover-foreground: #222222;
 
-  /* Deep mysteria purple as primary */
-  --primary: oklch(0.20 0.06 280);
-  --primary-foreground: oklch(0.97 0.005 280);
+  --primary: #222222;
+  --primary-foreground: #ffffff;
+  --secondary: #c2d8c4;
+  --secondary-foreground: #222222;
+  --muted: #eef3ee;
+  --muted-foreground: #5f6a60;
+  --accent: #c2d8c4;
+  --accent-foreground: #222222;
 
-  /* Warm cream secondary */
-  --secondary: oklch(0.93 0.015 75);
-  --secondary-foreground: oklch(0.22 0.01 60);
+  --destructive: #525252;
+  --destructive-foreground: #ffffff;
 
-  /* Muted with warm undertone */
-  --muted: oklch(0.955 0.008 75);
-  --muted-foreground: oklch(0.50 0.01 60);
+  --border: #d8e2d9;
+  --input: #d8e2d9;
+  --ring: #c2d8c4;
 
-  /* Lavender accent */
-  --accent: oklch(0.82 0.10 290);
-  --accent-foreground: oklch(0.22 0.01 60);
+  /* Restrained chart palette */
+  --chart-1: #222222;
+  --chart-2: #3a4b3c;
+  --chart-3: #5f7761;
+  --chart-4: #8ead90;
+  --chart-5: #c2d8c4;
 
-  --destructive: oklch(0.577 0.245 27);
-  --destructive-foreground: oklch(0.985 0.002 247);
+  --sidebar: #f6f8f6;
+  --sidebar-foreground: #222222;
+  --sidebar-primary: #222222;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #c2d8c4;
+  --sidebar-accent-foreground: #222222;
+  --sidebar-border: #d8e2d9;
+  --sidebar-ring: #c2d8c4;
 
-  /* Warm parchment border */
-  --border: oklch(0.89 0.012 70);
-  --input: oklch(0.89 0.012 70);
-  --ring: oklch(0.82 0.10 290);
+  /* Subtle semantic shades derived from the base palette */
+  --status-new: #6b726b;
+  --status-review: #7c8f7d;
+  --status-planned: #4e5f4f;
+  --status-progress: #3f4f40;
+  --status-shipped: #5c7a5e;
+  --status-declined: #636363;
 
-  --chart-1: oklch(0.646 0.222 41);
-  --chart-2: oklch(0.6 0.118 185);
-  --chart-3: oklch(0.398 0.07 227);
-  --chart-4: oklch(0.828 0.189 84);
-  --chart-5: oklch(0.769 0.188 70);
+  --brand-accent: #5f6a60;
+  --brand-accent-active: #222222;
+  --brand-accent-active-foreground: #ffffff;
 
-  --sidebar: oklch(0.98 0.005 75);
-  --sidebar-foreground: oklch(0.22 0.01 60);
-  --sidebar-primary: oklch(0.20 0.06 280);
-  --sidebar-primary-foreground: oklch(0.97 0.005 280);
-  --sidebar-accent: oklch(0.82 0.10 290);
-  --sidebar-accent-foreground: oklch(0.22 0.01 60);
-  --sidebar-border: oklch(0.89 0.012 70);
-  --sidebar-ring: oklch(0.82 0.10 290);
+  --vote-up: #3f5c41;
+  --vote-down: #575757;
 
-  /* Status colors */
-  --status-new: oklch(0.65 0.02 265);
-  --status-review: oklch(0.75 0.16 85);
-  --status-planned: oklch(0.55 0.12 290);
-  --status-progress: oklch(0.55 0.15 290);
-  --status-shipped: oklch(0.65 0.19 160);
-  --status-declined: oklch(0.6 0.2 25);
-
-  /* Brand Accent */
-  --brand-accent: oklch(0.50 0.01 60);
-  --brand-accent-active: oklch(0.20 0.06 280);
-  --brand-accent-active-foreground: oklch(0.97 0.005 280);
-
-  /* Vote reaction colors */
-  --vote-up: oklch(0.55 0.12 290);
-  --vote-down: oklch(0.60 0.20 25);
-
-  /* Superhuman special tokens */
-  --cream: oklch(0.93 0.015 75);
-  --cream-foreground: oklch(0.22 0.01 60);
-  --lavender: oklch(0.82 0.10 290);
-  --hero: oklch(0.15 0.04 280);
+  /* Supporting aliases retained for existing utility classes */
+  --cream: #f6f8f6;
+  --cream-foreground: #222222;
+  --lavender: #c2d8c4;
+  --hero: #222222;
+  --rose-accent: #c7d7c8;
+  --mint-accent: #d2e1d3;
+  --amber-accent: #dbe7dc;
+  --admin-badge: #e5efe6;
+  --admin-badge-foreground: #3f5b41;
+  --admin-badge-border: #c9daca;
+  --panel-shadow: rgba(34, 34, 34, 0.16);
+  --google-blue: #222222;
+  --google-green: #3f5c41;
+  --google-yellow: #829a84;
+  --google-red: #c2d8c4;
 }
 
 @layer base {
@@ -148,6 +161,8 @@
     font-weight: 460;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
   }
 }
 

@@ -1,6 +1,7 @@
+import { useNavigate } from '@tanstack/react-router';
 import { Team } from '@/hooks/use-teams';
 import { FeatureRequest } from '@/hooks/use-feature-requests';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, Users, Folder, ArrowRight, Activity, MessageSquare } from 'lucide-react';
 import { FeatureRequestCard } from './FeatureRequestCard';
@@ -14,7 +15,7 @@ interface PersonalBoardProps {
   onTeamSelect: (teamId: string) => void;
   onCreateTeam: () => void;
   onJoinTeam: () => void;
-  onVote: (requestId: string, voteType: 'up' | 'down') => Promise<void>;
+  onVote: (requestId: string, currentState: VoteState, voteType: 'up' | 'down') => void | Promise<void>;
   getVoteState: (requestId: string) => VoteState;
 }
 
@@ -29,16 +30,17 @@ export function PersonalBoard({
   onVote,
   getVoteState
 }: PersonalBoardProps) {
+  const navigate = useNavigate();
   const filteredSupported = supportedRequests;
 
   return (
-    <div className="space-y-12 py-8">
+    <div className="space-y-8 py-6 sm:space-y-12 sm:py-8">
       {/* Welcome Header */}
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Welcome back, {userName?.split(' ')[0] ?? 'Explorer'}
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-base text-muted-foreground sm:text-lg">
           Here's what's happening across your teams and ideas.
         </p>
       </div>
@@ -85,16 +87,16 @@ export function PersonalBoard({
 
       {/* Teams Section */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
-            <Folder className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">My Teams</h2>
+            <Folder className="h-5 w-5 shrink-0 text-primary" />
+            <h2 className="text-lg font-semibold sm:text-xl">My Teams</h2>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button variant="ghost" size="sm" onClick={onJoinTeam} className="text-xs text-muted-foreground hover:text-foreground">
               Join with code
             </Button>
-            <Button variant="outline" size="sm" onClick={onCreateTeam} className="text-xs gap-1.5 h-8">
+            <Button variant="outline" size="sm" onClick={onCreateTeam} className="text-xs gap-1.5 h-9 sm:h-8">
               <Plus className="h-3.5 w-3.5" />
               New Team
             </Button>
@@ -133,7 +135,7 @@ export function PersonalBoard({
         )}
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
         {/* Recent Activity Section */}
         <section className="space-y-6">
           <div className="flex items-center gap-2 border-b border-border/40 pb-4">
@@ -157,6 +159,8 @@ export function PersonalBoard({
                     request={request}
                     onVote={onVote}
                     voteState={getVoteState(request.id)}
+                    onClick={(id) => navigate({ to: '/request/$requestId', params: { requestId: id } })}
+                    canVote={true}
                     className="border-border/60"
                   />
                   <div className="absolute top-4 right-16 hidden sm:block">
@@ -193,6 +197,8 @@ export function PersonalBoard({
                     request={request}
                     onVote={onVote}
                     voteState={getVoteState(request.id)}
+                    onClick={(id) => navigate({ to: '/request/$requestId', params: { requestId: id } })}
+                    canVote={true}
                     className="border-border/60"
                   />
                   <div className="absolute top-4 right-16 hidden sm:block">

@@ -14,13 +14,13 @@ function MockCard({ title, votes, status, category }: {
 }) {
   const statusColors: Record<string, string> = {
     'New': 'bg-muted text-muted-foreground',
-    'Planned': 'bg-lavender/15 text-[oklch(0.45_0.12_290)]',
-    'In progress': 'bg-lavender/15 text-[oklch(0.45_0.12_290)]',
+    'Planned': 'bg-status-planned/15 text-status-planned',
+    'In progress': 'bg-status-progress/15 text-status-progress',
     'Shipped': 'bg-status-shipped/10 text-status-shipped',
   };
 
   return (
-    <div className="flex flex-col gap-2 rounded-[12px] border border-border/60 bg-white p-3">
+    <div className="flex flex-col gap-2 rounded-[12px] border border-border/60 bg-card p-3">
       <p className="text-[13px] font-semibold text-foreground">{title}</p>
       <div className="flex flex-wrap items-center gap-1.5">
         <div className="flex items-center gap-1 rounded-[6px] bg-vote-up/10 px-2 py-0.5 text-[10px] font-semibold text-vote-up">
@@ -46,7 +46,7 @@ function MockCard({ title, votes, status, category }: {
 function AppMockup() {
   return (
     <div className="relative w-full">
-      <div className="overflow-hidden rounded-[16px] border border-border/50 bg-background shadow-[0_20px_60px_-12px_rgba(0,0,0,0.12)]">
+      <div className="overflow-hidden rounded-[16px] border border-border/50 bg-background shadow-[0_20px_60px_-12px_var(--color-panel-shadow)]">
         <div className="space-y-2 bg-background p-4">
           <div className="mb-2">
             <p className="text-[13px] font-semibold text-foreground">Feature ideas</p>
@@ -178,9 +178,9 @@ export function LandingPage() {
       <div className="relative">
         {/* Gradient mesh */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[16px]">
-          <div className="absolute -top-[200px] right-[10%] h-[600px] w-[600px] rounded-full bg-lavender/[0.12] blur-[100px]" />
-          <div className="absolute -top-[100px] -left-[200px] h-[500px] w-[500px] rounded-full bg-[oklch(0.65_0.20_350)]/[0.08] blur-[80px]" />
-          <div className="absolute top-[60%] left-[40%] h-[300px] w-[300px] rounded-full bg-lavender/[0.06] blur-[80px]" />
+          <div className="absolute -top-[200px] right-[10%] h-[600px] w-[600px] rounded-full bg-accent/[0.14] blur-[100px]" />
+          <div className="absolute -top-[100px] -left-[200px] h-[500px] w-[500px] rounded-full bg-secondary/[0.22] blur-[80px]" />
+          <div className="absolute top-[60%] left-[40%] h-[300px] w-[300px] rounded-full bg-accent/[0.08] blur-[80px]" />
         </div>
 
         {/* Dot pattern */}
@@ -213,13 +213,13 @@ export function LandingPage() {
                 <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
                   <button
                     onClick={scrollToAuth}
-                    className="group inline-flex items-center justify-center gap-2 rounded-[10px] bg-lavender px-8 py-3 text-base font-semibold text-foreground transition-all hover:shadow-lg hover:shadow-lavender/25"
+                    className="group inline-flex items-center justify-center gap-2 rounded-[10px] bg-accent px-8 py-3 text-base font-semibold text-foreground transition-all hover:shadow-lg hover:shadow-accent/30"
                   >
                     Get started free <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </button>
                   <button
                     onClick={scrollToHowItWorks}
-                    className="inline-flex items-center justify-center rounded-[10px] border border-border bg-white px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-muted"
+                    className="inline-flex items-center justify-center rounded-[10px] border border-border bg-card px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-muted"
                   >
                     See how it works
                   </button>
@@ -230,10 +230,10 @@ export function LandingPage() {
               <div className="w-full max-w-md lg:max-w-lg flex-shrink-0">
                 {/* Decorative floating accents — 3 small, tasteful */}
                 <div className="relative">
-                  <div className="pointer-events-none absolute -top-6 -left-6 z-10 h-12 w-12 rounded-full bg-lavender shadow-lg shadow-lavender/20 animate-[float_6s_ease-in-out_infinite] flex items-center justify-center">
+                  <div className="pointer-events-none absolute -top-6 -left-6 z-10 h-12 w-12 rounded-full bg-accent shadow-lg shadow-accent/25 animate-[float_6s_ease-in-out_infinite] flex items-center justify-center">
                     <ThumbsUp className="h-5 w-5 text-foreground" />
                   </div>
-                  <div className="pointer-events-none absolute -top-4 -right-4 z-10 h-10 w-10 rounded-full bg-[oklch(0.65_0.20_350)] shadow-lg shadow-[oklch(0.65_0.20_350)]/20 animate-[float_5s_ease-in-out_1s_infinite] flex items-center justify-center">
+                  <div className="pointer-events-none absolute -top-4 -right-4 z-10 h-10 w-10 rounded-full bg-secondary shadow-lg shadow-secondary/30 animate-[float_5s_ease-in-out_1s_infinite] flex items-center justify-center">
                     <Heart className="h-4 w-4 text-foreground" />
                   </div>
                   <div className="pointer-events-none absolute -bottom-5 -right-5 z-10 h-11 w-11 rounded-full bg-foreground shadow-lg shadow-foreground/20 animate-[float_7s_ease-in-out_2s_infinite] flex items-center justify-center">
@@ -251,16 +251,16 @@ export function LandingPage() {
           <div className="mx-6 rounded-[24px] bg-foreground text-background sm:mx-10">
           <div className="mx-auto max-w-6xl px-6 py-20 sm:px-10 sm:py-28">
             <div className="mb-14 max-w-lg">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-lavender">How it works</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-accent">How it works</p>
               <h2 className="text-3xl font-bold leading-[1.08] tracking-[-0.01em] sm:text-4xl">Three steps from idea to shipped feature</h2>
             </div>
 
             <div className="grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-10">
               {steps.map((step, i) => {
                 const iconColors = [
-                  'bg-lavender text-foreground',
-                  'bg-[oklch(0.85_0.12_155)] text-foreground',
-                  'bg-[oklch(0.85_0.10_55)] text-foreground',
+                  'bg-accent text-foreground',
+                  'bg-secondary text-foreground',
+                  'bg-muted text-foreground',
                 ];
                 return (
                   <div key={i} className="relative">
@@ -268,8 +268,8 @@ export function LandingPage() {
                     <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-[10px] ${iconColors[i]}`}>
                       <step.icon className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-semibold tracking-[-0.02em] text-white">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-[1.6] text-white/70">{step.description}</p>
+                    <h3 className="text-lg font-semibold tracking-[-0.02em] text-background">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-[1.6] text-background/70">{step.description}</p>
                   </div>
                 );
               })}
@@ -285,7 +285,7 @@ export function LandingPage() {
               {/* Sticky header on left */}
               <div className="lg:w-80 lg:flex-shrink-0">
                 <div className="lg:sticky lg:top-8">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-lavender">Features</p>
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-accent">Features</p>
                   <h2 className="text-3xl font-bold leading-[1.08] tracking-[-0.01em] text-foreground sm:text-4xl">Everything you need to prioritize well</h2>
                   <p className="mt-4 text-base leading-[1.6] text-muted-foreground">
                     Simple tools that give your product decisions a foundation of real team input.
@@ -296,9 +296,9 @@ export function LandingPage() {
               {/* Feature cards on right */}
               <div className="flex-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {features.map((feature, i) => (
-                  <div key={i} className="group rounded-[16px] border border-border p-7 transition-all hover:border-lavender/30 hover:shadow-lg hover:shadow-lavender/5 sm:p-8">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[10px] bg-lavender/10 transition-colors group-hover:bg-lavender/15">
-                      <feature.icon className="h-5 w-5 text-lavender" />
+                  <div key={i} className="group rounded-[16px] border border-border p-7 transition-all hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 sm:p-8">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[10px] bg-accent/20 transition-colors group-hover:bg-accent/30">
+                      <feature.icon className="h-5 w-5 text-brand-accent-active" />
                     </div>
                     <h3 className="text-base font-semibold tracking-[-0.02em] text-foreground">{feature.title}</h3>
                     <p className="mt-2 text-sm leading-[1.6] text-muted-foreground">{feature.description}</p>
@@ -316,13 +316,13 @@ export function LandingPage() {
             <div className="relative mx-auto max-w-2xl">
               {!showAuth ? (
                 <div className="text-center">
-                  <h2 className="text-3xl font-bold leading-[1.08] tracking-[-0.01em] text-white sm:text-4xl">Ready to shape what's next?</h2>
-                  <p className="mx-auto mt-4 max-w-lg text-base leading-[1.6] text-white/60">
+                  <h2 className="text-3xl font-bold leading-[1.08] tracking-[-0.01em] text-background sm:text-4xl">Ready to shape what's next?</h2>
+                  <p className="mx-auto mt-4 max-w-lg text-base leading-[1.6] text-background/60">
                     Sign in to start submitting ideas, voting on features, and helping your team prioritize what matters.
                   </p>
                   <button
                     onClick={scrollToAuth}
-                    className="group mt-10 inline-flex items-center justify-center gap-2 rounded-[10px] bg-lavender px-8 py-3 text-base font-semibold text-foreground transition-all hover:shadow-lg hover:shadow-lavender/25"
+                    className="group mt-10 inline-flex items-center justify-center gap-2 rounded-[10px] bg-accent px-8 py-3 text-base font-semibold text-foreground transition-all hover:shadow-lg hover:shadow-accent/30"
                   >
                     Get started free <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </button>
@@ -337,10 +337,12 @@ export function LandingPage() {
         </section>
 
         {/* Footer */}
-        <footer className="px-6 py-4 sm:px-10">
-          <div className="mx-auto flex max-w-6xl items-center justify-between">
+        <footer className="px-6 py-6 sm:px-10">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-4">
             <AppLogo size="sm" variant="light" />
-            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
+            <p className="max-w-[280px] text-center text-xs text-muted-foreground sm:max-w-none sm:text-right">
+              © {new Date().getFullYear()} {APP_NAME}. All rights reserved.
+            </p>
           </div>
         </footer>
       </div>

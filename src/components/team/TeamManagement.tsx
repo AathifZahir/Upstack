@@ -14,11 +14,12 @@ import {
 
 interface TeamManagementProps {
   teamId: string;
+  teamName: string;
   inviteCode: string;
   isLead: boolean;
 }
 
-export function TeamManagement({ teamId, inviteCode, isLead }: TeamManagementProps) {
+export function TeamManagement({ teamId, teamName, inviteCode, isLead }: TeamManagementProps) {
   const { user, isAdmin } = useAuth();
   const { getTeamMembers } = useTeams(user?.id ?? null);
   const [members, setMembers] = useState<any[]>([]);
@@ -101,7 +102,7 @@ export function TeamManagement({ teamId, inviteCode, isLead }: TeamManagementPro
         variant="outline"
         size="sm"
         onClick={() => setInviteOpen(true)}
-        className="h-9 gap-2 text-xs font-semibold hover:bg-primary hover:text-primary-foreground border-dashed border-2 hover:border-solid transition-all"
+        className="h-10 w-full gap-2 text-xs font-semibold hover:bg-primary hover:text-primary-foreground border-dashed border-2 hover:border-solid transition-all sm:h-9 sm:w-auto"
       >
         <UserPlus className="h-3.5 w-3.5" />
         Invite Teammates
@@ -110,6 +111,7 @@ export function TeamManagement({ teamId, inviteCode, isLead }: TeamManagementPro
       <InviteModal
         open={inviteOpen}
         onOpenChange={setInviteOpen}
+        teamName={teamName}
         inviteCode={inviteCode}
       />
 
