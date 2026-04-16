@@ -1,4 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Analytics } from "@vercel/analytics/react";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import appCss from "../styles.css?url";
 import faviconUrl from "../assets/favicon.svg?url";
@@ -81,6 +82,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );
